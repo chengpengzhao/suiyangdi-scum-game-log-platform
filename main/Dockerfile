@@ -26,7 +26,6 @@ RUN apt-get install -y powershell
 # Install redis-cli
 RUN apt-get install -y redis-tools
 
-COPY . .
 RUN npm install
-ENTRYPOINT ["npm", "install"]
+COPY . .
 EXPOSE 10000 
