@@ -14,6 +14,11 @@
  Date: 13/04/2024 00:17:34
 */
 
+create database `scum_log_tool` default character set utf8mb4 collate utf8mb4_bin;
+
+use scum_log_tool;
+
+
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 

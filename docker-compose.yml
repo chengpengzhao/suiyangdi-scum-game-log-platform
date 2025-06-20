@@ -1,0 +1,41 @@
+version: "3.9"
+services:
+  #指定服务名称mysql、redis
+  mysql:
+    #自己构建的镜像，参见：docker-entrypoint-initdb.d -> build.sh
+    image: mysql:5.7.32
+    #指定容器名称
+    container_name: dockercompose-mysql
+    restart: always
+    #指定容器的环境变量
+    environment:
+      #数据库密码
+      - MYSQL_ROOT_PASSWORD=123456
+    #挂载数据卷
+    volumes:
+      - ./mysql/my.ini:/etc/mysql/conf.d/my.ini:ro
+      - ./mysql/script:/docker-entrypoint-initdb.d
+  redis:
+    #官方的Redis镜像image
+    image: redis
+    #指定容器名称
+    container_name: dockercompose-redis
+     #环境变量
+    privileged: true
+    environment:
+        - TZ=Asia/Shanghai
+        - LANG=en_US.UTF-8
+    restart: always
+    #command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
+    #volumes:
+    #  - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
+   #ports:
+   #  - "7380:6379"
+  app:
+    build: ./main
+    ports:
+      - "10000:10000"
+    entrypoint: ["npm", "run", "start:prod-multi"]
+    depends_on:
+      - mysql
+      - redis

@@ -52,11 +52,11 @@ function cleanRedisKeys(timeStamp) {
             else {
                 const REDIS_PATH = config_1.Config.getConf('REDIS_PATH');
                 const resCdRedisPath = yield powerShell.invoke();
-                (0, morgan_log_1.logBussiness)(`$rdkeys=${REDIS_PATH}redis-cli${redisHost ? ` -h ${redisHost}` : ''}${redisPort ? ` -p ${redisPort}` : ''}${redisPass ? ` -a ${redisPass}` : ''} keys "bull:${config_1.Config.getConf('SCUM_NO')}-*"`);
-                powerShell.addCommand(`$rdkeys=${REDIS_PATH}redis-cli${redisHost ? ` -h ${redisHost}` : ''}${redisPort ? ` -p ${redisPort}` : ''}${redisPass ? ` -a ${redisPass}` : ''} keys "bull:${config_1.Config.getConf('SCUM_NO')}-*"`);
+                (0, morgan_log_1.logBussiness)(`$rdkeys=redis-cli${redisHost ? ` -h ${redisHost}` : ''}${redisPort ? ` -p ${redisPort}` : ''}${redisPass ? ` -a ${redisPass}` : ''} keys "bull:${config_1.Config.getConf('SCUM_NO')}-*"`);
+                powerShell.addCommand(`$rdkeys=redis-cli${redisHost ? ` -h ${redisHost}` : ''}${redisPort ? ` -p ${redisPort}` : ''}${redisPass ? ` -a ${redisPass}` : ''} keys "bull:${config_1.Config.getConf('SCUM_NO')}-*"`);
                 const resListTargetRedisKeys = yield powerShell.invoke();
-                (0, morgan_log_1.logBussiness)(`if($rdkeys.length -gt 0){foreach ($keyitem in $rdkeys) {if (-not $keyitem.Contains("-${timeStamp}")) { ${REDIS_PATH}redis-cli${redisHost ? ` -h ${redisHost}` : ''}${redisPort ? ` -p ${redisPort}` : ''}${redisPass ? ` -a ${redisPass}` : ''} del $keyitem }}}`);
-                powerShell.addCommand(`if($rdkeys.length -gt 0){foreach ($keyitem in $rdkeys) {if (-not $keyitem.Contains("-${timeStamp}")) { ${REDIS_PATH}redis-cli${redisHost ? ` -h ${redisHost}` : ''}${redisPort ? ` -p ${redisPort}` : ''}${redisPass ? ` -a ${redisPass}` : ''} del $keyitem }}}`);
+                (0, morgan_log_1.logBussiness)(`if($rdkeys.length -gt 0){foreach ($keyitem in $rdkeys) {if (-not $keyitem.Contains("-${timeStamp}")) { redis-cli${redisHost ? ` -h ${redisHost}` : ''}${redisPort ? ` -p ${redisPort}` : ''}${redisPass ? ` -a ${redisPass}` : ''} del $keyitem }}}`);
+                powerShell.addCommand(`if($rdkeys.length -gt 0){foreach ($keyitem in $rdkeys) {if (-not $keyitem.Contains("-${timeStamp}")) { redis-cli${redisHost ? ` -h ${redisHost}` : ''}${redisPort ? ` -p ${redisPort}` : ''}${redisPass ? ` -a ${redisPass}` : ''} del $keyitem }}}`);
                 const resCleanTargetRedisKeys = yield powerShell.invoke();
                 powerShell.dispose();
                 setTimeout(() => {
